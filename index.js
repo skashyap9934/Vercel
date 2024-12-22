@@ -1,18 +1,32 @@
+// Packages and Modules
+require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
+
+// Required Files
+const { connectToDatabase } = require("./src/config/database");
+const { userRouter } = require("./src/routers/user.router");
+const { productsRouter } = require("./src/routers/products.router");
+const { wishlistsRouter } = require("./src/routers/wishlist.router");
+const { bagsRouter } = require("./src/routers/bags.router");
+
+const PORT = process.env.PORT || 8080;
+
 const app = express();
-const port = process.env.PORT || 8080;
 
 app.use(express.json());
+app.use(cors());
+app.use("/user", userRouter);
+app.use("/products", productsRouter);
+app.use("/wishlist", wishlistsRouter);
+app.use("/bag", bagsRouter);
 
 app.get("/", (req, res) => {
-  res.send("Hello, Vercel!");
+  res.status(200).json({ message: "Welcome to HomePage" });
 });
 
-app.post("/user", (req, res) => {
-  const { name, email } = req.body;
-  res.json({ name, email });
-});
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is UP & Running at PORT ${PORT}`);
+  connectToDatabase();
+  console.log(`Connected to the database successfully`);
 });
