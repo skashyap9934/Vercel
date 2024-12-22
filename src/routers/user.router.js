@@ -1,11 +1,10 @@
+require("dotenv").config();
 const { Router } = require("express");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const UserModel = require("../models/user.model");
 const AddressModel = require("../models/address.model");
 const PaymentModel = require("../models/payment.model");
-require("dotenv").config();
-
 const userRouter = Router();
 
 userRouter.post("/register", async (req, res) => {

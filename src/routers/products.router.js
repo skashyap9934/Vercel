@@ -1,8 +1,7 @@
-const { Router } = require("express");
-const mongoose = require("mongoose");
-
 require("dotenv").config();
 
+const { Router } = require("express");
+const mongoose = require("mongoose");
 const productsRouter = Router();
 
 productsRouter.get("/", async (req, res) => {
